@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
   describe ".search" do
 
     before { users }
-    after { User::USERS = [] }
+    after { @@users = [] }
 
     context "when query equal --find" do
       it "should return a object" do

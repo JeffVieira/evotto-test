@@ -1,7 +1,8 @@
 require './lib/string'
 
 class User
-  USERS = []
+  @@users = []
+
   attr_accessor :name, :age, :project_count, :total_value
 
   def initialize(params)
@@ -10,7 +11,7 @@ class User
     self.project_count = params[2].to_i
     self.total_value = params[3].to_i
 
-    USERS.to_a.push(self)
+    @@users.to_a.push(self)
   end
 
   def self.import_from_file(file_path)
@@ -40,7 +41,7 @@ class User
     when '--total'
       sum(query[1])
     when nil
-      print(USERS)
+      print(@@users)
     else
       puts "comando #{query[0]} não existe"
     end
@@ -51,14 +52,14 @@ class User
   def self.find(params)
     sorted = []
     params.each do |param|
-      USERS.find{|user| sorted.push(user) if user.name.downcase.include?(param.to_s.downcase) }
+      @@users.find{|user| sorted.push(user) if user.name.downcase.include?(param.to_s.downcase) }
     end
     print(sorted)
     sorted
   end
 
   def self.sort(column, direction="desc")
-    sorted = USERS.sort do |x,y|
+    sorted = @@users.sort do |x,y|
       if direction == "desc"
         x.send(column) <=> y.send(column)
       else
@@ -71,7 +72,7 @@ class User
 
   def self.sum(column)
     if ['age', 'total_value', 'project_count'].include?(column.underscore)
-      puts "#{column}: #{USERS.map(&column.underscore.to_sym).inject(:+)}"
+      puts "#{column}: #{@@users.map(&column.underscore.to_sym).inject(:+)}"
     else
       puts "Coluna #{column} não pode ser somada"
     end
