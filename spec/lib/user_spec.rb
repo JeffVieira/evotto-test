@@ -13,6 +13,14 @@ RSpec.describe User, type: :model do
     before { users }
     after { @@users = [] }
 
+    context "when query equal nil" do
+      it "User should receive print once" do
+         expect(User).to receive(:print).exactly(1).times
+         User.search([nil])
+      end
+    end
+
+
     context "when query equal --find" do
       it "should return a object" do
         expect(User.find(["jeff"])).to eq([users.first])
@@ -20,6 +28,11 @@ RSpec.describe User, type: :model do
 
       it "should return empty array" do
         expect(User.find(["nome"])).to eq([])
+      end
+
+      it "User should receive find once" do
+         expect(User).to receive(:find).exactly(1).times
+         User.search(['--find'])
       end
     end
 
@@ -31,9 +44,19 @@ RSpec.describe User, type: :model do
       it "should return a ordered array by name asc" do
         expect(User.sort("name", "asc")).to eq(users.reverse)
       end
+
+      it "User should receive order_by once" do
+         expect(User).to receive(:sort).exactly(1).times
+         User.search(['--order_by', 'name', 'desc'])
+      end
     end
 
     context "when query equal --total" do
+      it "User should receive sum once" do
+         expect(User).to receive(:sum).exactly(1).times
+         User.search(['--total', 'age'])
+      end
+
       it "should puts total age" do
         expect(STDOUT).to receive(:puts).with('age: 2')
         User.sum("age")
