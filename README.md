@@ -53,17 +53,18 @@ Name | Age | ProjectCount | TotalValue
 John | 32 anos | 3 | 25
 ```
 
-Prepare-se para alguns edge cases, por exemplo: O que acontece se não encontrar nenhum usuário? Posso selecionar mais de 2 usuários ao mesmo tempo?
+Encontrar um ou mais usuários:
+
+```
+ruby app.rb --source data/users.csv --find John Salvador
+
+# Results (console output)
+Name | Age | ProjectCount | TotalValue
+John | 32 anos | 3 | 25
+Slavador | 25 anos | 3 | 20
+```
 
 ### Requerimentos
 
-- Escreva utilizando Ruby (2+, fique a vontade para escolher a versão, aconselhada é a 2.3.1), fique livre para usar quaisquer bibliotecas, base de dados a sua escolha e etc
-- Escreva o máximo de testes possíveis
+- Ruby 2.3.1
 - Deve ser possível utilizar a biblioteca diretamente (Não apenas a CLI) para efetuar os testes
-- Utilize dos príncipios do bom código, escreva com commits bem descritivos, utilize Design Patterns (DRY, SOLID, e etc)
-- Atualize este documento com quaisquers informações pertinentes para rodar o projeto
-
-### Como fazer o teste
-
-- Faça um fork ou clone desse projeto no seu próprio repositório e faça o trabalho
-- Quando terminar, envie o link do repositório para gustavo@evotto.com.br com quaisquer outras informações necessárias
