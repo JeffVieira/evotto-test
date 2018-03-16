@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
   describe ".search" do
 
     before { users }
-    after { @@users = [] }
+    after { User.class_variable_set(:@@users, []) }
 
     context "when query equal nil" do
       it "User should receive print once" do
